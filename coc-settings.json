@@ -1,0 +1,16 @@
+{
+  "hover.target": "float",
+  "suggest.enableFloat": true,
+  "diagnostic.checkCurrentLine": false,
+  "coc.preferences.jumpCommand": "tabe",
+  // "coc.preferences.formatOnSave": true,
+  "[css][typescript][typescriptreact][javascript][javascriptreact][json][jsonc][graphql]": {
+    "coc.preferences.formatOnSave": true
+  },
+  "[lua]": {
+    "coc.preferences.formatOnSave": true
+  },
+  "eslint.autoFixOnSave": true,
+  "Lua.telemetry.enable": true,
+  "Lua.diagnostics.globals": ["vim"]
+}
