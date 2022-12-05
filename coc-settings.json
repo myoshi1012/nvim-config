@@ -11,6 +11,5 @@
     "coc.preferences.formatOnSave": true
   },
   "eslint.autoFixOnSave": true,
-  "Lua.telemetry.enable": true,
-  "Lua.diagnostics.globals": ["vim"]
+  "Lua.telemetry.enable": true
 }

@@ -21,7 +21,7 @@ db.custom_header = {
 db.custom_center = {
   {
     icon = '  ',
-    desc = 'New filee                        ',
+    desc = 'New file                        ',
     shortcut = ':enew       ',
     action = 'enew',
   },
@@ -31,16 +31,16 @@ db.custom_center = {
     action = 'SessionManager load_session'
   },
   {
-    icon = '  ',
+    icon = '  ',
     desc = 'Find file                       ',
     shortcut = '<Leader> f f',
     action = "Telescope find_files hidden=tro_ignore=true",
   },
-  { icon = '  ',
+  { icon = '  ',
     desc = 'File Browser                    ',
     action = 'Telescope file_browser',
     shortcut = '<Leader> f b' },
-  { icon = '  ',
+  { icon = '  ',
     desc = 'Find word                       ',
     action = 'Telescope live_grep',
     shortcut = '<Leader> f w'
