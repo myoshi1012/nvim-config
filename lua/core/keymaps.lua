@@ -3,14 +3,17 @@ local g = vim.g -- global variables
 
 g.mapleader = ',' -- change leader to a comma
 
-map("n", "<Leader>w", "<Cmd>w", { noremap = true })
-map("n", "<Leader>q", "<Cmd>q", { noremap = true })
+map("n", "<Leader>w", "<Cmd>w<CR>", { noremap = true })
+map("n", "<Leader>qq", "<Cmd>q<CR>", { noremap = true })
+map("n", "<Leader>qa", "<Cmd>qa<CR>", { noremap = true })
+map("n", "<leader>r", "<cmd>ReloadNvimConf<CR>", { noremap = true })
+map("n", "<leader>tn", "<cmd>tabnew<CR>", { noremap = true })
+map("n", "<leader>tc", "<cmd>tabclose<CR>", { noremap = true })
 
 -- Getting stuck in ~~vim~~ terminal
 map("t", "<Esc>", "<C-\\><C-n>", {})
 
 -- Reload vimrc
-map("n", "<leader>sr", "<cmd>:source $MYVIMRC<CR>", {})
 
 -- Quick cursor movement
 map("n", "<C-Down>", "5j", { noremap = true })
@@ -32,7 +35,7 @@ map("n", "*d", "\"*d", { noremap = true })
 
 -- CoC
 map("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true })
-map("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true })
+map("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true, })
 map("n", "qf", "<Plug>(coc-fix-current)", { silent = true })
 map("n", "gd", "<Plug>(coc-definition)", { silent = true })
 map("n", "gy", "<Plug>(coc-type-definition)", { silent = true })
@@ -66,19 +69,19 @@ map("x", "<leader>x", "<Plug>(coc-convert-snippet)", {})
 -- coc-explorer
 map("n", "<space>e", "<cmd>CocCommand explorer<cr>", {})
 map("n", "<leader>er",
-  "<Cmd>call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>)", {})
+  "<Cmd>call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>)",
+  { silent = true, noremap = true })
 
 -- Telescope
 map("n", "<leader>ff", ":lua require'telescope.builtin'.find_files()<Cr>", { noremap = true, silent = true })
 map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { noremap = true })
 map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { noremap = true })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { noremap = true })
-map("n", "<leader>fb", "<cmd>Telescope file_browser", { noremap = true })
+map("n", "<leader>fb", "<cmd>Telescope file_browser<cr>", { noremap = true })
 map("n", "<space>p", ":lua require'telescope'.extensions.project.project{}<cr>", { noremap = true, silent = true })
+map("n", "<leader>fd",
+  '<cmd>Telescope find_files cwd=' .. os.getenv('HOME') .. '/.config/nvim/<CR>',
+  { noremap = true, silent = true })
 
 -- Session Manager
 map("n", "<leader>sl", "<Cmd>SessionManager load_session<CR>", { noremap = true })
-
-
--- Shortcuts
-map("n", "tn", "<cmd>:tabnew<cr>", { noremap = true })

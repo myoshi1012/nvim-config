@@ -4,7 +4,11 @@ if not ok then
   return
 end
 
-local home = os.getenv('HOME')
+-- vim.api.nvim_create_autocmd("TabNewEntered", {
+--   pattern = "*",
+--   command = "Dashboard"
+-- })
+
 db.custom_header = {
   '仕事なんてやめよ？            ',
   '°　　  \\　　°　     ／ ￣ ＼ ',
@@ -18,12 +22,13 @@ db.custom_header = {
   '◯　。／ ￣ ＼　゜　　◯　。°   ',
   '',
 }
+
 db.custom_center = {
   {
     icon = '  ',
     desc = 'New file                        ',
-    shortcut = ':enew       ',
-    action = 'enew',
+    shortcut = '<Leader> n n',
+    action = 'DashboardNewFile',
   },
   { icon = '  ',
     desc = 'Load session                    ',
@@ -45,15 +50,15 @@ db.custom_center = {
     action = 'Telescope live_grep',
     shortcut = '<Leader> f w'
   },
+  { icon = '  ',
+    desc = 'Browse dotfiles                 ',
+    shortcut = "<Leader> f d",
+    action = 'Telescope find_files cwd=' .. os.getenv('HOME') .. '/.config/nvim/ search_dirs=lua,init.lua',
+  },
   {
     icon = "  ",
     desc = "Update plugins                  ",
     shortcut = ":PackerSync ",
     action = "PackerSync",
-  },
-  { icon = '  ',
-    desc = 'Browse dotfiles                 ',
-    shortcut = "<Leader> v d",
-    action = 'Telescope find_files cwd=' .. home .. '/.config/nvim/ search_dirs=lua,init.lua',
   },
 }

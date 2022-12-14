@@ -8,7 +8,7 @@ M.onedark = function()
   end
 
   onedark.setup({
-    style = 'deep'
+    style = 'cool'
   })
   onedark.load()
 end

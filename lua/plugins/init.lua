@@ -26,10 +26,16 @@ return require('packer').startup(function(use)
     end
   }
 
+  use { 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require('plugins.configs.nvim_web_devicons')
+    end
+  }
+
   use { 'Shatur/neovim-session-manager',
     config = function()
       require('plugins.configs.session_manager')
-    end
+    end,
   }
 
   use { 'neovim/nvim-lspconfig',
@@ -63,7 +69,13 @@ return require('packer').startup(function(use)
     end
   }
 
-  use { 'neoclide/coc.nvim', branch = 'release' }
+  use { 'neoclide/coc.nvim',
+    branch = 'release',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = function()
+      require("plugins.configs.coc")
+    end,
+  }
 
   use { 'lewis6991/gitsigns.nvim',
     requires = 'nvim-lua/plenary.nvim',
@@ -72,6 +84,8 @@ return require('packer').startup(function(use)
       require('gitsigns').setup()
     end
   }
+
+  use { 'p00f/nvim-ts-rainbow', cond = is_not_vscode }
 
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -82,9 +96,14 @@ return require('packer').startup(function(use)
         highlight = { enable = true },
         context_commentstring = {
           enable = true
+        },
+        rainbow = {
+          enable = false,
+          extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+          max_file_lines = nil, -- Do not enable for files with more than n lines, int
         }
       })
-    end
+    end,
   }
 
   use { 'sheerun/vim-polyglot' }
@@ -124,9 +143,9 @@ return require('packer').startup(function(use)
     end
   }
 
-  use { 'windwp/nvim-ts-autotag' }
+  use { 'windwp/nvim-ts-autotag', }
 
-  use { 'JoosepAlviste/nvim-ts-context-commentstring' }
+  use { 'JoosepAlviste/nvim-ts-context-commentstring', }
 
   use {
     "folke/todo-comments.nvim",
@@ -139,7 +158,7 @@ return require('packer').startup(function(use)
   use { 'navarasu/onedark.nvim',
     config = function()
       require('plugins.configs.others').onedark()
-    end
+    end,
   }
 
   use {
@@ -151,6 +170,22 @@ return require('packer').startup(function(use)
     },
     config = function()
       require "octo".setup()
+    end
+  }
+
+  use {
+    "tversteeg/registers.nvim",
+    config = function()
+      require("registers").setup()
+    end,
+  }
+  --use { "ellisonleao/glow.nvim" }
+
+  use { 'kdheepak/lazygit.nvim' }
+
+  use { 'folke/tokyonight.nvim',
+    config = function()
+      require('tokyonight').setup()
     end
   }
 
