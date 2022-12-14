@@ -185,9 +185,13 @@ return require('packer').startup(function(use)
 
   use { 'folke/tokyonight.nvim',
     config = function()
-      require('tokyonight').setup()
+      require('tokyonight').setup({
+        style = 'night'
+      })
     end
   }
+
+  use { 'ruanyl/vim-gh-line' }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
