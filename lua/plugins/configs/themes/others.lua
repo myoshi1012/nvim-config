@@ -7,9 +7,9 @@ M.onedark = function()
     return
   end
 
-  onedark.setup({
+  onedark.setup {
     style = 'cool'
-  })
+  }
   -- onedark.load()
 end
 

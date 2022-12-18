@@ -12,4 +12,4 @@ vim.g.coc_global_extensions = {
   'coc-styled-components'
 }
 
-vim.api.nvim_create_user_command("Tsc", ":call CocAction(\"runCommand\", \"tsserver.watchBuild\")", { nargs = 0 })
+vim.api.nvim_create_user_command('Tsc', ':call CocAction(\"runCommand\", \"tsserver.watchBuild\")', { nargs = 0 })

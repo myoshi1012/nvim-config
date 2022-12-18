@@ -1,4 +1,4 @@
-local ok, nvim_web_devicons = pcall(require, "nvim-web-devicons")
+local ok, nvim_web_devicons = pcall(require, 'nvim-web-devicons')
 
 if not ok then
   return
@@ -10,10 +10,10 @@ nvim_web_devicons.setup {
   -- DevIcon will be appended to `name`
   override = {
     zsh = {
-      icon = "",
-      color = "#428850",
-      cterm_color = "65",
-      name = "Zsh"
+      icon = '',
+      color = '#428850',
+      cterm_color = '65',
+      name = 'Zsh'
     }
   };
   -- globally enable different highlight colors per icon (default to true)

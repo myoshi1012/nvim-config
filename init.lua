@@ -1,5 +1,6 @@
 if vim.g.vscode then
   require('vscode')
 else
-  require('core.general')
+  require('core')
+  require('plugins')
 end

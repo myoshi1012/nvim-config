@@ -1,6 +1,4 @@
 require 'core.keymaps'
-require 'core.lualine-bubble'
-require 'plugins'
 
 
 -----------------------------------------------------------
@@ -19,14 +17,13 @@ opt.clipboard = 'unnamedplus' -- copy/paste to system clipboard
 opt.swapfile = false -- don't use swapfile
 opt.sessionoptions['blank'] = nil
 g.rooter_patterns = { '.git', 'go.mod' }
-vim.cmd [[colorscheme tokyonight]]
 
 -----------------------------------------------------------
 -- Neovim UI
 -----------------------------------------------------------
 opt.number = true -- show line number
 opt.showmatch = true -- highlight matching parenthesis
-opt.foldmethod = 'marker' -- enable folding (default 'foldmarker')
+-- opt.foldmethod = 'marker' -- enable folding (default 'foldmarker')
 opt.colorcolumn = '80' -- line lenght marker at 80 columns
 opt.splitright = true -- vertical split to the right
 opt.splitbelow = true -- orizontal split to the bottom
@@ -35,13 +32,13 @@ opt.smartcase = true -- ignore lowercase for the whole pattern
 opt.linebreak = true -- wrap on word boundary
 
 
-local augp_id_yank = api.nvim_create_augroup('YankHighlight', {})
+local augp_id_yank = vim.api.nvim_create_augroup('YankHighlight', {})
 api.nvim_create_autocmd({ 'TextYankPost' },
-  { pattern = "*", command = " lua vim.highlight.on_yank{higroup='IncSearch', timeout=700}", group = augp_id_yank })
+  { pattern = '*', command = " lua vim.highlight.on_yank{higroup='IncSearch', timeout=700}", group = augp_id_yank })
 
 local augp_id_filetypes = api.nvim_create_augroup('FileTypes', {})
-api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" },
-  { pattern = { "*.tmux.conf", "*.tmux.conf.local" }, command = "set filetype=tmux", group = augp_id_filetypes })
+api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' },
+  { pattern = { '*.tmux.conf', '*.tmux.conf.local' }, command = 'set filetype=tmux', group = augp_id_filetypes })
 
 
 -----------------------------------------------------------
@@ -73,12 +70,12 @@ opt.smartindent = true -- autoindent new lines
 --cmd [[autocmd FileType text,markdown,html,xhtml,javascript setlocal cc=0]]
 
 -- 2 spaces for selected filetypes
-api.nvim_create_autocmd({ "FileType" }, {
+api.nvim_create_autocmd({ 'FileType' }, {
   pattern = {
-    "json", "xml", "html", "xhtml", "css", "scss", "lua", "yaml", "javascript", "javascriptreact", "typescript",
-    "typescriptreact"
+    'json', 'xml', 'html', 'xhtml', 'css', 'scss', 'lua', 'yaml', 'javascript', 'javascriptreact', 'typescript',
+    'typescriptreact'
   },
-  command = "setlocal shiftwidth=2 tabstop=2"
+  command = 'setlocal shiftwidth=2 tabstop=2'
 })
 
 
@@ -108,7 +105,7 @@ cmd [[
 -- Neovide
 -----------------------------------------------------------
 g.neovide_floating_opacity = 1.0
-g.neovide_cursor_vfx_mode = "railgun"
+g.neovide_cursor_vfx_mode = 'railgun'
 g.neovide_cursor_vfx_opacity = 300.0
 g.neovide_cursor_vfx_particle_lifetime = 1.5
 g.neovide_cursor_vfx_particle_density = 8.0
@@ -118,16 +115,16 @@ g.neovide_cursor_vfx_particle_curl = 0.1
 
 local function reload_nvim_conf()
   for name, _ in pairs(package.loaded) do
-    if name:match('^core') then
+    if name:match '^core' then
       package.loaded[name] = nil
     end
   end
   dofile(vim.env.MYVIMRC)
-  vim.notify("Nvim configuration reloaded!", vim.log.levels.INFO)
+  vim.notify('Nvim configuration reloaded!', vim.log.levels.INFO)
 end
 
 api.nvim_create_user_command('ReloadNvimConf', reload_nvim_conf, {})
 
-api.nvim_create_user_command("Glow", function(opts)
-  require("glow").execute(opts)
-end, { complete = "file", nargs = "*", bang = true })
+api.nvim_create_user_command('Glow', function(opts)
+  require 'glow'.execute(opts)
+end, { complete = 'file', nargs = '*', bang = true })
