@@ -29,27 +29,6 @@ map('n', '*y', '\"*y', { noremap = true })
 map('n', '*p', '\"*p', { noremap = true })
 map('n', '*d', '\"*d', { noremap = true })
 
---- NvimTree
--- map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { noremap = true })
--- map("n", "<space>nr", "<cmd>NvimTreeRefresh<CR>", { noremap = true })
--- map("n", "<space>nf", "<cmd>NvimTreeFindFile<CR>", { noremap = true })
 
--- Telescope
--- map("n", "<leader>ff", ":lua require'telescope.builtin'.find_files()<Cr>", { noremap = true, silent = true })
--- map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { noremap = true })
--- map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { noremap = true })
--- map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { noremap = true })
--- map("n", "<leader>fb", "<cmd>Telescope file_browser<cr>", { noremap = true })
-map('n', '<space>p', ":lua require'telescope'.extensions.project.project{}<cr>", { noremap = true, silent = true })
-
--- Session Manager
-map('n', '<leader>sl', '<Cmd>SessionManager load_session<CR>', { noremap = true })
-
-
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)

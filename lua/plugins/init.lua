@@ -17,16 +17,20 @@ end
 local aug_id = vim.api.nvim_create_augroup('packer_user_config', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
   group = aug_id,
-  pattern = vim.fn.expand '~' .. '/.config/nvim/lua/plugins/**/*.lua',
+  pattern = vim.fn.expand '~' .. '/.config/nvim/lua/plugins/*.lua',
   command = 'source ' .. vim.fn.expand '~' .. '/.config/nvim/lua/plugins/init.lua' .. ' | PackerCompile'
 })
 
 return require 'packer'.startup(function(use)
+  use { 'rcarriga/nvim-notify' }
   use { 'wbthomason/packer.nvim' }
   use { 'nvim-lua/plenary.nvim' }
 
+  use { 'b0o/schemastore.nvim' }
+
   -- {{{ LSP
-  use { 'neovim/nvim-lspconfig', config = get_config 'lsp.lsp' }
+  use { 'neovim/nvim-lspconfig',
+    config = get_config 'lsp.lspconfig' }
 
   use { 'williamboman/mason.nvim',
     requires = { 'williamboman/mason-lspconfig.nvim' },
@@ -72,13 +76,50 @@ return require 'packer'.startup(function(use)
       },
       { 'nvim-telescope/telescope-ui-select.nvim' }
     },
-    config = function()
-      require 'plugins.configs.telescope'
-    end
+    config = get_config 'telescope'
   }
   -- }}} Telescope
 
+  -- {{{ DAP
+  use { 'mfussenegger/nvim-dap',
+    requires = { 'leoluz/nvim-dap-go' },
+    config = get_config 'dap.go'
+  }
+
+  use {
+    'rcarriga/nvim-dap-ui',
+    requires = {
+      'nvim-treesitter/nvim-treesitter'
+    },
+    config = function()
+      vim.fn.sign_define('DapBreakpoint', { text = '⛔', texthl = '', linehl = '', numhl = '' })
+      vim.fn.sign_define('DapStopped', { text = '👉', texthl = '', linehl = '', numhl = '' })
+      require 'dapui'.setup()
+    end
+  }
+  -- }}} DAP
+
   -- {{{ Coding
+  use {
+    'windwp/nvim-autopairs',
+    config = function() require 'nvim-autopairs'.setup {
+        disable_filetype = { 'TelescopePrompt', 'vim' },
+      }
+    end
+  }
+
+  use { 'kevinhwang91/nvim-ufo',
+    requires = { 'kevinhwang91/promise-async', },
+    after = { 'nvim-lspconfig' },
+    confing = function()
+      require 'ufo'.setup {
+        provider_selector = function(bufnr, filetype, buftype)
+          return { 'lsp', 'treesitter' }
+        end
+      }
+    end
+  }
+
   use {
     'folke/trouble.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
@@ -102,6 +143,7 @@ return require 'packer'.startup(function(use)
       { 'hrsh7th/cmp-path' },
       { 'hrsh7th/cmp-cmdline' }
     },
+    after = { 'nvim-autopairs' },
     config = get_config 'nvim-cmp'
   }
 
@@ -144,13 +186,17 @@ return require 'packer'.startup(function(use)
 
   use {
     'folke/which-key.nvim',
+    requires = {
+      'nvim-telescope/telescope.nvim',
+      'kevinhwang91/nvim-ufo'
+    },
+    after = { 'nvim-ufo' },
     config = get_config 'which-key'
   }
   -- }}} Coding
 
   -- {{{ Git/Github
   use { 'lewis6991/gitsigns.nvim',
-    tag = 'release',
     config = get_config 'gitsigns'
   }
 
@@ -166,7 +212,16 @@ return require 'packer'.startup(function(use)
     end
   }
 
-  use { 'ruanyl/vim-gh-line' }
+
+  use {
+    'ruifm/gitlinker.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    config = function()
+      require 'gitlinker'.setup {
+        mappings = '<space>zz'
+      }
+    end
+  }
 
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim',
     config = function()
@@ -195,14 +250,15 @@ return require 'packer'.startup(function(use)
 
   use {
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = get_config 'lualine'
-    -- opt = true,
   }
 
   use { 'folke/tokyonight.nvim',
     config = get_config 'themes.tokyonight'
   }
+
+  use { 'catppuccin/nvim', as = 'catppuccin', config = get_config 'themes.catppuccin' }
   -- }}} UI
 
   use {
@@ -213,8 +269,20 @@ return require 'packer'.startup(function(use)
   }
 
   use { 'Shatur/neovim-session-manager',
+    disable = true,
     config = get_config 'session_manager'
   }
+
+  -- use {
+  --   'ahmedkhalf/project.nvim',
+  --   config = function()
+  --     require 'project_nvim'.setup {
+  --       -- your configuration comes here
+  --       -- or leave it empty to use the default settings
+  --       -- refer to the configuration section below
+  --     }
+  --   end
+  -- }
 
   use { 'airblade/vim-rooter' }
 

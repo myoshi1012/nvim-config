@@ -23,13 +23,19 @@ g.rooter_patterns = { '.git', 'go.mod' }
 -----------------------------------------------------------
 opt.number = true -- show line number
 opt.showmatch = true -- highlight matching parenthesis
--- opt.foldmethod = 'marker' -- enable folding (default 'foldmarker')
+opt.foldmethod = 'marker' -- enable folding (default 'foldmarker')
 opt.colorcolumn = '80' -- line lenght marker at 80 columns
 opt.splitright = true -- vertical split to the right
 opt.splitbelow = true -- orizontal split to the bottom
 opt.ignorecase = true -- ignore case letters when search
 opt.smartcase = true -- ignore lowercase for the whole pattern
 opt.linebreak = true -- wrap on word boundary
+opt.signcolumn = 'yes'
+vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
 
 
 local augp_id_yank = vim.api.nvim_create_augroup('YankHighlight', {})

@@ -5,7 +5,7 @@ if not ok then
 end
 
 require 'tokyonight'.setup {
-  style = 'storm',
+  style = 'moon',
   styles = {
     floats = 'dark'
   },
@@ -32,7 +32,7 @@ require 'tokyonight'.setup {
     }
     hl.TelescopePreviewTitle = {
       bg = c.bg_dark,
-      fg = c.bg_dark,
+      fg = c.fg,
     }
     hl.TelescopeResultsTitle = {
       bg = c.bg_dark,
@@ -40,5 +40,3 @@ require 'tokyonight'.setup {
     }
   end,
 }
-
-vim.cmd [[colorscheme tokyonight]]
