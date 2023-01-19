@@ -1,5 +1,5 @@
-require 'lua.plugins.configs.themes.onedark'
-require 'lua.plugins.configs.themes.catppuccin'
-require 'lua.plugins.configs.themes.tokyonight'
+require 'plugins.configs.themes.onedark'
+require 'plugins.configs.themes.catppuccin'
+require 'plugins.configs.themes.tokyonight'
 
-vim.cmd.colorscheme 'catppuccin'
+--vim.cmd.colorscheme 'tokyonight'

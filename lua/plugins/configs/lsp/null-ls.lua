@@ -3,24 +3,29 @@ if not ok then
   return
 end
 
-local cspell_opts = {
-  extra_args = { '--config', '.vscode/cspell.json' },
-  condition = function(utils)
-    return utils.has_file '.vscode/cspell.json'
-  end
-}
+-- local cspell_opts = {
+--   extra_args = { '--config', vim.fn.expand '~' .. '/.vscode/cspell.json' },
+--   condition = function(utils)
+--     return utils.has_file(vim.fn.expand '~' .. '/.vscode/cspell.json')
+--   end
+-- }
 
 local sources = {
   null_ls.builtins.diagnostics.cspell.with {
-    unpack(cspell_opts),
+    extra_args = { '--config', vim.fn.expand '~' .. '/.vscode/cspell.json' },
     condition = function(utils)
-      return utils.has_file '.vscode/cspell.json'
+      return utils.has_file(vim.fn.expand '~' .. '/.vscode/cspell.json')
     end,
     diagnostics_postprocess = function(diagnostic)
       diagnostic.severity = vim.diagnostic.severity['WARN']
     end,
   },
-  null_ls.builtins.code_actions.cspell.with(cspell_opts),
+  null_ls.builtins.code_actions.cspell.with {
+    extra_args = { '--config', vim.fn.expand '~' .. '/.vscode/cspell.json' },
+    condition = function(utils)
+      return utils.has_file(vim.fn.expand '~' .. '/.vscode/cspell.json')
+    end
+  },
   null_ls.builtins.code_actions.eslint.with {
     prefer_local = 'node_modules/.bin'
   },
@@ -31,7 +36,7 @@ local sources = {
     prefer_local = 'node_modules/.bin'
   },
   null_ls.builtins.diagnostics.tsc.with {
-    local_only = 'node_modules/.bin',
+    only_local = '/node_modules/.bin',
   },
   null_ls.builtins.diagnostics.golangci_lint.with {},
   null_ls.builtins.code_actions.gitsigns.with {
@@ -46,7 +51,9 @@ local sources = {
 
 local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 
-null_ls.setup { sources = sources, debug = true,
+null_ls.setup {
+  sources = sources,
+  debug = false,
   on_attach = function(client, bufnr) -- enable format on save
     if client.supports_method 'textDocument/formatting' then
       vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }

@@ -5,10 +5,12 @@ end
 wk.setup {}
 
 local gitsigns = require 'gitsigns'
+-- local ufo = require 'ufo'
 
 wk.register {
   ['<C-N>'] = { '<cmd>NvimTreeToggle<cr>', 'NvimTreeToggle' },
-  ['K'] = { vim.lsp.buf.hover, 'Hover Action' },
+  ['J'] = { vim.diagnostic.open_float, 'Open float diagnotics' },
+  --  ['K'] = { vim.lsp.buf.hover, 'Hover Action' },
   ['<C-K>'] = { vim.lsp.buf.signature_help, 'Signature Help' },
   ['['] = {
     name = 'Jump Prev',
@@ -26,10 +28,12 @@ wk.register {
       return '<Ignore>'
     end, 'Jump Next Hunk' },
   },
-  ['z'] = {
-    ['R'] = { require 'ufo'.openAllFolds, 'Open All Folds' },
-    ['M'] = { require 'ufo'.closeAllFolds, 'Close All Folds' }
-  },
+  -- ['z'] = {
+  --   -- ['R'] = { ufo.openAllFolds, 'Open All Folds' },
+  --   -- ['M'] = { ufo.closeAllFolds, 'Close All Folds' },
+  --   ['r'] = { require 'ufo'.openFoldExceptKinds, 'Open Fold Except Kinds' },
+  --   ['m'] = { require 'ufo'.closeFoldsWith, 'Colse Fold With' }
+  -- },
   ['<leader>'] = {
     ['ca'] = { vim.lsp.buf.code_action, 'Code Action' },
     ['rn'] = { vim.lsp.buf.rename, 'Rename Current Buffer' },
@@ -48,7 +52,7 @@ wk.register {
       name = 'NvimTree',
       r = { '<cmd>NvimTreeRefresh<cr>', 'NvimTreeRefresh' },
       f = { '<cmd>NvimTreeFindFile<cr>', 'NvimTreeFindFile' },
-    }
+    },
   },
   g = {
     name = 'GoTo',
@@ -56,8 +60,8 @@ wk.register {
     d = { '<cmd>Telescope lsp_definitions<cr>', 'GoTo Definitions' },
     i = { '<cmd>Telescope lsp_implementations<cr>', 'GoTo Implementations' },
     r = { '<cmd>Telescope lsp_references<cr>', 'GoTo References' },
-    t = { '<cmd>Telescope lsp_type_definitions<cr>', 'GoTo Type Declarations' },
-    ['D'] = { vim.lsp.buf.declaration, 'GoTo Declaration' },
+    ['D'] = { '<cmd>Telescope lsp_type_definitions<cr>', 'GoTo Type Declarations' },
+    ['c'] = { vim.lsp.buf.declaration, 'GoTo Declaration' },
   },
   ['<space>'] = {
     f = { function() vim.lsp.buf.format { async = true } end, 'Format Current Buffer' },

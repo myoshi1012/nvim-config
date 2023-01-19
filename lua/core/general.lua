@@ -1,6 +1,5 @@
 require 'core.keymaps'
 
-
 -----------------------------------------------------------
 -- Neovim API aliases
 -----------------------------------------------------------
@@ -21,21 +20,31 @@ g.rooter_patterns = { '.git', 'go.mod' }
 -----------------------------------------------------------
 -- Neovim UI
 -----------------------------------------------------------
-opt.number = true -- show line number
 opt.showmatch = true -- highlight matching parenthesis
-opt.foldmethod = 'marker' -- enable folding (default 'foldmarker')
 opt.colorcolumn = '80' -- line lenght marker at 80 columns
-opt.splitright = true -- vertical split to the right
+opt.splitright = true -- vtrtical split to the right
 opt.splitbelow = true -- orizontal split to the bottom
 opt.ignorecase = true -- ignore case letters when search
 opt.smartcase = true -- ignore lowercase for the whole pattern
 opt.linebreak = true -- wrap on word boundary
-opt.signcolumn = 'yes'
-vim.o.foldcolumn = '1' -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
+opt.number = true -- show line number
 
+-- for icons like lsp-saga
+opt.signcolumn = 'yes:2'
+
+-- for indents
+--vim.opt.list = true
+--vim.opt.listchars:append 'space:⋅'
+-- vim.opt.listchars:append 'eol:↴'
+
+-- for folding
+--vim.o.foldmethod = 'manual'
+vim.o.foldcolumn = '0' -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 88
+vim.o.foldenable = true
+-- vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+-- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
 
 local augp_id_yank = vim.api.nvim_create_augroup('YankHighlight', {})
@@ -58,7 +67,9 @@ opt.synmaxcol = 240 -- max column for syntax highlight
 -----------------------------------------------------------
 -- Colorscheme
 -----------------------------------------------------------
+opt.background = 'dark'
 opt.termguicolors = true -- enable 24-bit RGB colors
+vim.cmd.colorscheme 'catppuccin'
 
 -----------------------------------------------------------
 -- Tabs, indent

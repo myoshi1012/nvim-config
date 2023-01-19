@@ -1,3 +1,5 @@
+require 'plugins.configs.themes'
+
 local ensure_packer = function()
   local fn = vim.fn
   local install_path = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
@@ -22,7 +24,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
 })
 
 return require 'packer'.startup(function(use)
-  use { 'rcarriga/nvim-notify' }
+  use { 'rcarriga/nvim-notify', config = get_config 'notify' }
   use { 'wbthomason/packer.nvim' }
   use { 'nvim-lua/plenary.nvim' }
 
@@ -30,7 +32,8 @@ return require 'packer'.startup(function(use)
 
   -- {{{ LSP
   use { 'neovim/nvim-lspconfig',
-    config = get_config 'lsp.lspconfig' }
+    config = get_config 'lsp.lspconfig'
+  }
 
   use { 'williamboman/mason.nvim',
     requires = { 'williamboman/mason-lspconfig.nvim' },
@@ -56,9 +59,10 @@ return require 'packer'.startup(function(use)
     'glepnir/lspsaga.nvim',
     branch = 'main',
     config = function()
-      local saga = require 'lspsaga'
-      saga.init_lsp_saga {
-        border_style = 'rounded'
+      require 'lspsaga'.setup {
+        ui = {
+          border = 'none'
+        }
       }
     end,
   }
@@ -108,16 +112,16 @@ return require 'packer'.startup(function(use)
     end
   }
 
+  -- use { 'anuvyklack/pretty-fold.nvim',
+  --   config = function()
+  --     require 'pretty-fold'.setup()
+  --   end
+  -- }
+
   use { 'kevinhwang91/nvim-ufo',
     requires = { 'kevinhwang91/promise-async', },
-    after = { 'nvim-lspconfig' },
-    confing = function()
-      require 'ufo'.setup {
-        provider_selector = function(bufnr, filetype, buftype)
-          return { 'lsp', 'treesitter' }
-        end
-      }
-    end
+    after = { 'nvim-treesitter', 'nvim-lspconfig' },
+    config = get_config 'ufo'
   }
 
   use {
@@ -173,26 +177,26 @@ return require 'packer'.startup(function(use)
     },
     config = get_config 'treesitter'
   }
-  use { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' }
+  use { 'p00f/nvim-ts-rainbow', after = { 'nvim-treesitter' } }
   use { 'windwp/nvim-ts-autotag', }
 
   use {
     'folke/todo-comments.nvim',
     requires = 'nvim-lua/plenary.nvim',
-    config = function()
-      require 'todo-comments'.setup()
-    end
+    config = get_config 'todo-comments'
   }
 
   use {
     'folke/which-key.nvim',
     requires = {
       'nvim-telescope/telescope.nvim',
-      'kevinhwang91/nvim-ufo'
     },
-    after = { 'nvim-ufo' },
     config = get_config 'which-key'
   }
+
+  use { 'simrat39/symbols-outline.nvim', config = function()
+    require 'symbols-outline'.setup()
+  end }
   -- }}} Coding
 
   -- {{{ Git/Github
@@ -231,6 +235,9 @@ return require 'packer'.startup(function(use)
   -- }}} Git/Github
 
   -- {{{ UI
+  use { 'nvim-tree/nvim-web-devicons' }
+  use { 'romgrk/barbar.nvim', wants = 'nvim-web-devicons' }
+
   use {
     'nvim-tree/nvim-tree.lua',
     requires = {
@@ -258,7 +265,10 @@ return require 'packer'.startup(function(use)
     config = get_config 'themes.tokyonight'
   }
 
-  use { 'catppuccin/nvim', as = 'catppuccin', config = get_config 'themes.catppuccin' }
+  use { 'catppuccin/nvim',
+    as = 'catppuccin',
+    config = get_config 'themes.catppuccin'
+  }
   -- }}} UI
 
   use {
@@ -269,13 +279,13 @@ return require 'packer'.startup(function(use)
   }
 
   use { 'Shatur/neovim-session-manager',
-    disable = true,
     config = get_config 'session_manager'
   }
 
   -- use {
   --   'ahmedkhalf/project.nvim',
   --   config = function()
+  --
   --     require 'project_nvim'.setup {
   --       -- your configuration comes here
   --       -- or leave it empty to use the default settings

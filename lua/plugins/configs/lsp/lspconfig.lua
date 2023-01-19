@@ -1,6 +1,5 @@
 local lspconfig = require 'lspconfig'
 local util = require 'lspconfig/util'
-local configs = require 'lspconfig/configs'
 
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
@@ -12,7 +11,7 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 end
 
 local default_capabilities = require 'cmp_nvim_lsp'.default_capabilities()
-default_capabilities.textDocument.foldingRang = {
+default_capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
   lineFoldingOnly = true
 }
@@ -58,7 +57,7 @@ lspconfig.gopls.setup {
 }
 
 
--- lua
+-- {{{ lua
 lspconfig.sumneko_lua.setup {
   capabilities = default_capabilities,
   on_attach = function(client)
@@ -68,7 +67,7 @@ lspconfig.sumneko_lua.setup {
       vim.api.nvim_create_autocmd('BufWritePre', {
         pattern = '*.lua',
         callback = function()
-          vim.lsp.buf.formatting_sync()
+          vim.lsp.buf.format()
         end,
         group = au_lsp,
       })
@@ -95,8 +94,9 @@ lspconfig.sumneko_lua.setup {
     },
   },
 }
+-- }}} lua
 
--- tsserver
+-- #region tsserver
 lspconfig.tsserver.setup {
   capabilities = default_capabilities,
   on_attach = function(client)
@@ -104,6 +104,7 @@ lspconfig.tsserver.setup {
   end,
   filetypes = { 'typescript', 'typescriptreact', 'typescript.tsx' },
 }
+-- #region tsserver
 
 
 -- require 'lspconfig'['eslint'].setup {
@@ -134,3 +135,15 @@ lspconfig.jsonls.setup {
     }
   }
 }
+
+--- {{{ docker
+lspconfig.dockerls.setup {
+  capabilities = default_capabilities,
+}
+--}}}
+
+-- {{{ yaml
+lspconfig.yamlls.setup {
+  capabilities = default_capabilities,
+}
+-- }}}

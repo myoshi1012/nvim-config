@@ -3,7 +3,7 @@ local g = vim.g -- global variables:w
 
 g.mapleader = ',' -- change leader to a comma
 
-map('n', '<Leader>w', '<Cmd>w<CR>', { noremap = true })
+map('n', '<Leader>ww', '<Cmd>w<CR>', { noremap = true })
 map('n', '<Leader>wq', '<Cmd>wq<CR>', { noremap = true })
 map('n', '<Leader>qq', '<Cmd>q<CR>', { noremap = true })
 map('n', '<Leader>qa', '<Cmd>qa<CR>', { noremap = true })
@@ -30,5 +30,5 @@ map('n', '*p', '\"*p', { noremap = true })
 map('n', '*d', '\"*d', { noremap = true })
 
 
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
