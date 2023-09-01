@@ -1,6 +1,6 @@
 # My nvim config
 
-## Add new language-server
+## How to add new language-server
 
 https://github.com/williamboman/mason-lspconfig.nvim#introduction
 
