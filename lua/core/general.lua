@@ -69,7 +69,7 @@ opt.synmaxcol = 240 -- max column for syntax highlight
 -----------------------------------------------------------
 opt.background = 'dark'
 opt.termguicolors = true -- enable 24-bit RGB colors
-vim.cmd.colorscheme 'catppuccin'
+vim.cmd.colorscheme 'tokyonight'
 
 -----------------------------------------------------------
 -- Tabs, indent

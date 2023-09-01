@@ -1,5 +1,5 @@
 require 'dap-go'.setup()
-require 'dap.ext.vscode'.load_launchjs()
+-- require 'dap.ext.vscode'.load_launchjs()
 
 local dap = require 'dap'
 

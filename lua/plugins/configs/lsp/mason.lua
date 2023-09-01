@@ -8,8 +8,9 @@ end
 mason.setup {}
 mason_lspconfig.setup {
   ensure_installed = {
+    'gopls',
     'jsonls',
-    'sumneko_lua',
+    'lua_ls',
     'tsserver',
     'tailwindcss'
   }

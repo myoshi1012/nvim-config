@@ -26,7 +26,7 @@ lspconfig.gopls.setup {
       analyses = {
         unusedparams = true,
       },
-      staticcheck = true,
+      staticcheck = false,
     },
   },
   on_attach = function()
@@ -58,7 +58,7 @@ lspconfig.gopls.setup {
 
 
 -- {{{ lua
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
   capabilities = default_capabilities,
   on_attach = function(client)
     client.server_capabilities.document_formatting = true

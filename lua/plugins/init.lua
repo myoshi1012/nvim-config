@@ -30,8 +30,35 @@ return require 'packer'.startup(function(use)
 
   use { 'b0o/schemastore.nvim' }
 
+  use { 'L3MON4D3/LuaSnip',
+    tag = 'v1.*',
+    requires = {
+      { 'rafamadriz/friendly-snippets' }
+    },
+    config = function()
+      local luasnip = require 'luasnip'
+      luasnip.filetype_extend('typescript', { 'typescript' })
+      luasnip.filetype_extend('typescriptreact', { 'react-es7' })
+      -- require 'luasnip.loaders.from_vscode'.lazy_load()
+    end
+  }
+
+  use { 'hrsh7th/nvim-cmp',
+    requires = {
+      { 'hrsh7th/cmp-nvim-lsp', after = { 'nvim-cmp' } },
+      { 'hrsh7th/cmp-buffer',   after = { 'nvim-cmp' } },
+      { 'hrsh7th/cmp-path',     after = { 'nvim-cmp' } },
+      { 'hrsh7th/cmp-cmdline',  after = { 'nvim-cmp' } }
+    },
+    after = { 'nvim-autopairs' },
+    config = get_config 'nvim-cmp'
+  }
+
+  use { 'saadparwaiz1/cmp_luasnip', after = { 'nvim-cmp' } }
+
   -- {{{ LSP
   use { 'neovim/nvim-lspconfig',
+    after = { 'nvim-cmp', 'cmp-nvim-lsp' },
     config = get_config 'lsp.lspconfig'
   }
 
@@ -73,7 +100,8 @@ return require 'packer'.startup(function(use)
     requires = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-      { 'nvim-telescope/telescope-project.nvim',
+      {
+        'nvim-telescope/telescope-project.nvim',
         requires = {
           { 'nvim-telescope/telescope-file-browser.nvim' },
         }
@@ -106,7 +134,8 @@ return require 'packer'.startup(function(use)
   -- {{{ Coding
   use {
     'windwp/nvim-autopairs',
-    config = function() require 'nvim-autopairs'.setup {
+    config = function()
+      require 'nvim-autopairs'.setup {
         disable_filetype = { 'TelescopePrompt', 'vim' },
       }
     end
@@ -140,30 +169,7 @@ return require 'packer'.startup(function(use)
     end
   }
 
-  use { 'hrsh7th/nvim-cmp',
-    requires = {
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-path' },
-      { 'hrsh7th/cmp-cmdline' }
-    },
-    after = { 'nvim-autopairs' },
-    config = get_config 'nvim-cmp'
-  }
 
-  use { 'L3MON4D3/LuaSnip',
-    tag = 'v1.*',
-    requires = {
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'rafamadriz/friendly-snippets' }
-    },
-    config = function()
-      local luasnip = require 'luasnip'
-      luasnip.filetype_extend('typescript', { 'typescript' })
-      luasnip.filetype_extend('typescriptreact', { 'react-es7' })
-      require 'luasnip.loaders.from_vscode'.lazy_load()
-    end
-  }
 
   use { 'lukas-reineke/indent-blankline.nvim',
     config = get_config 'indent_blankline'
@@ -243,7 +249,7 @@ return require 'packer'.startup(function(use)
     requires = {
       'nvim-tree/nvim-web-devicons', -- optional, for file icons
     },
-    tag = 'nightly', -- optional, updated every week. (see issue #1193)
+    tag = 'nightly',                 -- optional, updated every week. (see issue #1193)
     config = get_config 'nvim-tree'
   }
 
