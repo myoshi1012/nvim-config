@@ -1,4 +1,4 @@
-local ok, db = pcall(require, "dashboard")
+local ok, db = pcall(require, 'dashboard')
 
 if not ok then
   return
@@ -39,7 +39,7 @@ db.custom_center = {
     icon = '  ',
     desc = 'Find file                       ',
     shortcut = '<Leader> f f',
-    action = "Telescope find_files hidden=tro_ignore=true",
+    action = 'Telescope find_files hidden=tro_ignore=true',
   },
   { icon = '  ',
     desc = 'File Browser                    ',
@@ -52,13 +52,13 @@ db.custom_center = {
   },
   { icon = '  ',
     desc = 'Browse dotfiles                 ',
-    shortcut = "<Leader> f d",
-    action = 'Telescope find_files cwd=' .. os.getenv('HOME') .. '/.config/nvim/ search_dirs=lua,init.lua',
+    shortcut = '<Leader> f d',
+    action = 'Telescope find_files cwd=' .. os.getenv 'HOME' .. '/.config/nvim/ search_dirs=lua,init.lua',
   },
   {
-    icon = "  ",
-    desc = "Update plugins                  ",
-    shortcut = ":PackerSync ",
-    action = "PackerSync",
+    icon = '  ',
+    desc = 'Update plugins                  ',
+    shortcut = ':PackerSync ',
+    action = 'PackerSync',
   },
 }
